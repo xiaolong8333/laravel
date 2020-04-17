@@ -37,6 +37,7 @@ class VerificationCodesController extends Controller
         \Cache::put($key,['phone' => $phone,'code' => $code], $expiredAt);
 
         return response()->json([
+            'code' => $code,
             'key' => $key,
             'expired_at' => $expiredAt->toDateTimeString()
         ])->setStatusCode(201);
