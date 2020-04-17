@@ -14,6 +14,7 @@ class ImagesController extends Controller
     public function store(ImageRequest $request, ImageUploadHandler $uploader,Image $image)
     {
         $user = $request->user();
+
         $size = $request->type == 'avatar' ? 416 : 1024;
         $result = $uploader->save($request->image,Str::plural($request->type),$user->id,$size);
 
