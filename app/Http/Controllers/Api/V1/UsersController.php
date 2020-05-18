@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Models\User;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\Api\UserRequest;
 use Illuminate\Auth\AuthenticationException;
+use App\Http\Controllers\Api\Controller;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -35,8 +36,8 @@ class UsersController extends Controller
         return new UserResource($user);
     }
 
-    public function show(User $user){
-
+    public function show(User $user)
+    {
         //$user = User::where('id', $user)->first();
         return new UserResource($user);
     }

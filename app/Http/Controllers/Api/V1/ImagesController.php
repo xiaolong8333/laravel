@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Image;
 use Illuminate\Support\Str;
@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Handlers\ImageUploadHandler;
 use App\Http\Resources\ImageResource;
 use App\Http\Requests\Api\ImageRequest;
+use App\Http\Controllers\Api\Controller;
 
 class ImagesController extends Controller
 {

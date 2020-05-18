@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 //use Overtrue\EasySms\EasySms;
 use App\Http\Requests\Api\VerificationCodeRequest;
+use App\Http\Controllers\Api\Controller;
 
 class VerificationCodesController extends Controller
 {

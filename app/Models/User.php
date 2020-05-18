@@ -48,4 +48,9 @@ class User extends Authenticatable implements MustVerifyEmailContract, JWTSubjec
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAuthorOf($model)
+    {
+        return $this->id == $model->user_id;
+    }
+
 }

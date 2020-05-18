@@ -17,7 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->group([
     'version' => 'v1',
-    'namespace'  => 'App\Http\Controllers\Api',
+    'namespace'  => 'App\Http\Controllers\Api\V1',
     'middleware' => ['bindings','throttle:' . config('api.rate_limits.sign')]],function ($api) {
 
         $api->get('index', 'IndexController@show');
@@ -31,7 +31,7 @@ $api->group([
 
     $api->group([
         'version' => 'v1',
-        'namespace'  => 'App\Http\Controllers\Api',
+        'namespace'  => 'App\Http\Controllers\Api\V1',
         'middleware' => ['bindings','throttle:' . config('api.rate_limits.access')]], function ($api) {
         // 游客可以访问的接口
         $api->post('authorizations','AuthorizationsController@store')
@@ -42,8 +42,11 @@ $api->group([
         // 分类列表
         $api->get('categories','CategoriesController@index')
             ->name('categories.index');
+        // 话题列表，详情
+        $api->get('/topics','TopicsController@index')->name('topics.index');
+        $api->get('/topics/{topic}', 'TopicsController@show')->name('topics.show');
         // 登录后可以访问的接口
-        $api->group(['middleware' =>  'auth'], function ($api) {
+        $api->group(['middleware' =>  'token.canrefresh'], function ($api) {
             $api->get('user', 'UsersController@me')
                 ->name('user.show');
             // 刷新token
@@ -55,5 +58,11 @@ $api->group([
             // 上传图片
             $api->post('images', 'ImagesController@store')
                 ->name('images.store');
+            // 发布话题
+            $api->post('/topics', 'TopicsController@store')->name('topics.store');
+
+            $api->patch('/topics/{topic}', 'TopicsController@update')->name('topics.update');
+
+            $api->delete('/topics/{topic}', 'TopicsController@destroy')->name('topics.destroy');
        });
 });

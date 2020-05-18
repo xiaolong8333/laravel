@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Api\AuthorizationRequest;
 use App\Http\Controllers\Controller;
@@ -23,11 +23,7 @@ class AuthorizationsController extends Controller
             throw new AuthenticationException('用户名或密码错误');
         }
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60])
-            ->setStatusCode(201);
+        return $this->respondWithToken($token)->setStatusCode(201);
     }
 
     public function update()
@@ -40,5 +36,14 @@ class AuthorizationsController extends Controller
     {
         auth('api')->logout();
         return response(null,204);
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'expires_in' => auth('api')->factory()->getTTL() * 60
+        ]);
     }
 }
