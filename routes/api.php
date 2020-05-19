@@ -60,9 +60,30 @@ $api->group([
                 ->name('images.store');
             // 发布话题
             $api->post('/topics', 'TopicsController@store')->name('topics.store');
-
+            //修改话题
             $api->patch('/topics/{topic}', 'TopicsController@update')->name('topics.update');
-
+            //删除话题
             $api->delete('/topics/{topic}', 'TopicsController@destroy')->name('topics.destroy');
+            //创建回复
+            $api->post('topics/{topic}/replies', 'RepliesController@store')
+                ->name('topics.replies.store');
+            //删除回复
+            $api->delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')
+                ->name('topics.replies.destroy');
+            //某个话题的回复列表
+            $api->get('topics/{topic}/replies', 'RepliesController@index')
+                ->name('topics.replies.index');
+            //某个用户的回复列表
+            $api->get('users/{user}/replies', 'RepliesController@userIndex')
+                ->name('users.replies.index');
+            //通知列表
+            $api->get('notifications', 'NotificationsController@index')
+                ->name('notifications.index');
+            //通知统计
+            $api->get('notifications/stats', 'NotificationsController@stats')
+                ->name('notifications.stats');
+            //标记消息通知为已读
+            $api->patch('user/read/notifications', 'NotificationsController@read')
+                ->name('user.notifications.read');
        });
 });
