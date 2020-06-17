@@ -36,6 +36,8 @@ $api->group([
         // 游客可以访问的接口
         $api->post('authorizations','AuthorizationsController@store')
             ->name('api.socials.authorizations.store');
+        $api->post('weapp/authorizations', 'AuthorizationsController@weappStore')
+            ->name('weapp.authorizations.store');
         // 某个用户的详情
         $api->get('users/{user}', 'UsersController@show')
             ->name('users.show');
