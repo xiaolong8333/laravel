@@ -15,7 +15,7 @@ class TopicsController extends Controller
 {
     public function index(Request $request, TopicQuery $query)
     {
-        $topics = $query->paginate();
+        $topics = $query->paginate(5);
 
         return TopicResource::collection($topics);
 
@@ -50,6 +50,10 @@ class TopicsController extends Controller
     public function show($topicId, TopicQuery $query)
     {
         $topic = $query->findOrFail($topicId);
+        $newViewCount = $topic->view_count+1;
+        $topic->update(array(
+                'view_count' => $newViewCount,
+            ));
         return new TopicResource($topic);
     }
 /*    public function show($topicId)

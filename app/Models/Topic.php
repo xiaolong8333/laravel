@@ -7,11 +7,10 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class Topic extends Model
 {
-    protected $fillable = ['title','body','category_id'];
+    protected $fillable = ['title','body','category_id','view_count'];
 
     //protected $queryClass = \App\Http\Queries\QueryBuilderBindable::class;
-
-
+    
     public function replies()
     {
         return $this->hasMany(Reply::class);

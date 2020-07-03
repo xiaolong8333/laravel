@@ -58,9 +58,7 @@ class AuthorizationsController extends Controller
             filter_var($username, FILTER_VALIDATE_EMAIL) ?
                 $credentials['email'] = $username :
                 $credentials['phone'] = $username;
-
             $credentials['password'] = $request->password;
-
             // 验证用户名和密码是否正确
             if (!auth('api')->once($credentials)) {
                 throw new AuthenticationException('用户名或密码错误');
